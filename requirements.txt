@@ -1,0 +1,14 @@
+pandas==1.5.1
+scipy==1.9.2
+numpy==1.23.4
+scikit-learn==1.1.2
+tqdm==4.64.1
+dataclasses==0.6
+matplotlib==3.6.1
+typing==3.7.4.3
+altair==4.2.0
+plotly==5.10.0
+keras==2.10.0
+xgboost==1.5.1
+shap==0.41.0
+lime==0.2.0.1
