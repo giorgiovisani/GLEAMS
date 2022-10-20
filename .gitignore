@@ -1,11 +1,10 @@
 *.pdf
 *.png
+*.pkl
 
 
 **/__pycache__/
 **/.vscode/
 **/.idea/
-Experiments/results/*
-Experiments/explanations/*
 sampling/
 domain_tree/imgs/
