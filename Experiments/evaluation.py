@@ -643,6 +643,6 @@ def run_tests(dataset, n_sobol_points, relevant_vars_list, n_mc=1000):
 
 
 if __name__ == "__main__":
-    run_tests(dataset="wine",n_sobol_points=8,relevant_vars_list=[6])
-    # run_tests(dataset="houses", n_sobol_points=8, relevant_vars_list=[10])
-    run_tests(dataset="parkinson",n_sobol_points=8,relevant_vars_list=[10])
+    run_tests(dataset="wine",n_sobol_points=15,relevant_vars_list=[6])
+    run_tests(dataset="houses", n_sobol_points=15, relevant_vars_list=[10])
+    run_tests(dataset="parkinson",n_sobol_points=15,relevant_vars_list=[10])
