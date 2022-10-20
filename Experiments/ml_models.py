@@ -4,55 +4,35 @@
 # In[1]:
 
 
-import sys
 import os
+import pickle
+import zipfile
 from zipfile import ZipFile
 
 import numpy as np
+import pandas as pd
 from keras import Sequential
 from keras.callbacks import Callback
 from keras.layers import Dense
+from keras.models import load_model
 from keras.optimizers import Adam
-
 from keras.saving.save import save_model
+from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor
 
-# from sklearn.preprocessing import MinMaxScaler
-from keras.models import load_model
-import zipfile
-import pickle
-
-from utils import save_pickle_object
-
-# os.chdir(".\\notebooks")
-
-sys.path.append('..\\helpers')
-sys.path.append('..\\pymob\\mob')
-sys.path.append('.\\notebooks')
-sys.path.append('..\\domain_tree')
-sys.path.append('..\\helpers')
-sys.path.append('..\\domain_tree')
-sys.path.append('..\\sampling')
-sys.path.append('../gleams')
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-
-n_sobol_points = 13
-dataset = "houses"  # "wine", "parkinson"
-model = "xgb"
-model_path = "_".join([dataset, model, "model"])
+from utils import load_pickle_object, save_pickle_object
 
 
-class EarlyStopping_verbose(Callback):
+class EarlyStoppingVerbose(Callback):
     """
     My own EarlyStopping class with the right verbosity
-    inspired by: https://stackoverflow.com/questions/69635182/capturing-epoch-count-when-using-earlystopping-feature-with-keras-model
+    inspired by:
+    https://stackoverflow.com/questions/69635182/capturing-epoch-count-when-using-earlystopping-feature-with-keras-model
 
     """
 
     def __init__(self, patience=0, nepochs=1, min_delta=0.01):
-        super(EarlyStopping_verbose, self).__init__()
+        super(EarlyStoppingVerbose, self).__init__()
         self.patience = patience
         self.min_delta = min_delta
         self.nepochs = nepochs
@@ -226,7 +206,7 @@ def fit_nn_regr(nn_regr, X_train, X_val, y_train, y_val, patience=700, min_delta
     history = nn_regr.fit(X_train, y_train, epochs=40000,
                           validation_data=(X_val, y_val),
                           verbose=0,
-                          callbacks=[EarlyStopping_verbose(patience=patience, min_delta=min_delta, nepochs=500)],
+                          callbacks=[EarlyStoppingVerbose(patience=patience, min_delta=min_delta, nepochs=500)],
                           batch_size=len(X_train)
                           )
     return history
@@ -247,9 +227,8 @@ def load_pickled_object(model_path):
     return regressor
 
 
-def load_nn(model_path, zip):
+def load_nn(model_path, zip=True):
     """Unzip the NN file, load it and remove the unzipped version from the os
-    :param zip:
     """
     if zip:
         with zipfile.ZipFile(model_path + ".zip", 'r') as zip_ref:
@@ -260,12 +239,23 @@ def load_nn(model_path, zip):
     return regressor
 
 
+def load_previous_model(model_path, is_keras=False, zip=False):
+    """Load stored black-box models"""
+
+    path_to_be_tested = model_path + ".zip" if zip and is_keras else model_path
+    if os.path.exists(path_to_be_tested):
+        if is_keras:
+            return load_nn(model_path, zip=zip)
+        else:
+            return load_pickle_object(model_path)
+    else:
+        return None
+
+
 def train_ml_model(dataset, model, nn_learning_rate, patience, min_delta):
     """
-
-    :param dataset:
-    :param model:
-    :return:
+    Train the given ML model (specified in the 'model' parameter) on the requested dataset,
+    with specified parameters
     """
 
     # parameters check
@@ -294,11 +284,6 @@ def train_ml_model(dataset, model, nn_learning_rate, patience, min_delta):
         save_pickle_object(regressor, path=model_path + ".pkl")
 
     elif model == "nn":
-
-        # #scaled data
-        # scaler = MinMaxScaler()
-        # X_train = scaler.fit_transform(X_train)
-        # X_test = scaler.transform(X_test)
 
         regressor = get_nn_regr(n_vars=X_train.shape[1], learning_rate=nn_learning_rate)
         history = fit_nn_regr(regressor, X_train, X_test, y_train, y_test, patience=patience, min_delta=min_delta)

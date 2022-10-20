@@ -6,7 +6,7 @@ import numpy as np
 from pymob.mob_utils import get_leaf_weights, get_leaves
 from sklearn.utils.validation import check_array
 
-from gleams_utils import (ParametersError,
+from .gleams_utils import (ParametersError,
                           _check_domain, _check_n_sobol_points,
                           _data_validation,
                           get_coefficients, get_model, get_sobol_x,
