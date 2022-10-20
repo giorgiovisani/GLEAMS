@@ -147,8 +147,7 @@ class Gleams:
         return None
 
     def local_importance(self, sample: np.array, visualization_mode: str = "notebook", standardized: bool = True,
-                         show: bool = True,
-                         save: bool = False) -> tuple:
+                         show: bool = True, save: bool = False, path: str = "local_importance.pdf") -> tuple:
         """
         Compute local importance for a specific sample,
          i.e. coefficients of the local linear model in the region where 'sample' lies.
@@ -161,6 +160,7 @@ class Gleams:
         :param standardized: boolean flag, if True local coefficients are standardized
         :param show:  boolean flag, if True the local importance plot is shown
         :param save:  boolean flag, if True save the local importance plot on disk
+        :param path: path of the file where to store the local importance figure (only if save=True)
         :return: a tuple containing the explanation dictionary and the local importance plot
         """
 
@@ -173,8 +173,7 @@ class Gleams:
         if show:
             fig.show(renderer=visualization_mode)
         if save:
-            fig.write_image("local_importance.pdf")
-
+            fig.write_image(path)
         return explanation_dictionary, fig
 
     def global_importance(self, true_to="model", data=None, meaning="ranking importance", visualization_mode="notebook",

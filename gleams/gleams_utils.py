@@ -280,3 +280,7 @@ def _validate_domain_dict(domain_dict):
             raise Exception(
                 "The range of the variable {} is wrong (max boundary > min boundary or they are the same value".format(
                     id_var))
+
+def vconcat(list):
+    """Concatenate the list of figures in a single altair figure"""
+    return alt.vconcat(*list).resolve_scale(color='independent')

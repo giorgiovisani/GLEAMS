@@ -1085,7 +1085,10 @@ The number of epochs is 40000, never reached since we use early stopping, settin
 <h2 id="steps-to-reproduce-the-code-specif-for-windows-os">Steps to reproduce the code (specif for Windows OS):<a class="headerlink" href="#steps-to-reproduce-the-code-specif-for-windows-os" title="Permanent link"></a></h2>
 <ul>
 <li>Open the terminal from the Gleams_code_submission folder</li>
-<li>Activate the gleams_venv by using <code>.\gleams_venv\Scripts\activate</code></li>
+<li>download virtualenv package <code>py -m pip install --user virtualenv</code></li>
+<li>Create your own virtual environment <code>py -m venv env</code></li>
+<li>Activate the gleams_venv by using <code>.\env\Scripts\activate</code></li>
+<li>Install required packages through requirements.txt <code>py -m pip install -r requirements.txt</code></li>
 <li>navigate to the Experiments folder, using <code>cd Experiments</code></li>
 <li>Run the evaluation.py main file to obtain the results of the paper, using <code>python -O evaluation.py</code> (the <code>-O</code> option is required to avoid Shap raising errors due to unit tests failure)  </li>
 </ul>

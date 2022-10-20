@@ -20,7 +20,10 @@ The number of epochs is 40000, never reached since we use early stopping, settin
 ## Steps to reproduce the code (specif for Windows OS):
 
 - Open the terminal from the Gleams\_code\_submission folder
-- Activate the gleams_venv by using ```.\gleams_venv\Scripts\activate```
+- download virtualenv package ```py -m pip install --user virtualenv```
+- Create your own virtual environment ```py -m venv env```
+- Activate the gleams_venv by using ```.\env\Scripts\activate```
+- Install required packages through requirements.txt ```py -m pip install -r requirements.txt```
 - navigate to the Experiments folder, using ```cd Experiments```
 - Run the evaluation.py main file to obtain the results of the paper, using ```python -O evaluation.py``` (the ```-O``` option is required to avoid Shap raising errors due to unit tests failure)  
 
