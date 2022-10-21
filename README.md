@@ -19,7 +19,7 @@ The number of epochs is 40000, never reached since we use early stopping, settin
 
 ## Steps to reproduce the code (specific for Windows OS):
 
-- Open the terminal from the Gleams\_code\_submission folder
+- Open the terminal from the AISTATS\_submission\_code folder
 - download virtualenv package ```py -m pip install --user virtualenv```
 - Create your own virtual environment ```py -m venv env```
 - Activate the gleams_venv by using ```.\env\Scripts\activate```
