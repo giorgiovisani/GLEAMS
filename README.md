@@ -7,7 +7,7 @@ The experiments to reproduce the results in Table 2 of the Paper, are contained 
 
 ***Warning I***: results may slightly vary due to randomness in the initialization and training of both the Machine Learning models and explanation models (eg. LIME generates 5000 random datapoints, Shap randomly samples a number of variable combinations, etc).  
 
-***Warning II***: experiments take a very long time to run.
+***Warning II***: experiments require long computation time to run. Just to give an idea, on a Intel-i9 11th gen CPU, 32GB RAM, 8 cores Laptop the evaluation.py script takes approximately 52 hours to run. 
 
 
 ## Black-Box Models Specifics:
@@ -17,7 +17,7 @@ The experiments to reproduce the results in Table 2 of the Paper, are contained 
 - Neural Network: employed the keras package to build a Multi Layer Perceptron (MLP) of 3 layers (2 Dense layers of 264 neurons each with sigmoid activation, 1 Dense layer of a single neuron with linear activation to obtain the predictions). We optimize the 'MSE' metric, using the Adam optimizer with initial learning\_rate=0.005.
 The number of epochs is 40000, never reached since we use early stopping, setting patience=700. Regarding the min\_delta parameter we use a different value for each dataset, since the target variable has different scales of measurement. In particular, min\_delta has value 0.03 for the wine dataset, 0.3 for parkinson, 3 for houses.
 
-## Steps to reproduce the code (specif for Windows OS):
+## Steps to reproduce the code (specific for Windows OS):
 
 - Open the terminal from the Gleams\_code\_submission folder
 - download virtualenv package ```py -m pip install --user virtualenv```

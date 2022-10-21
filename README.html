@@ -1071,7 +1071,7 @@ body .markdown-body
 <h2 id="about-paper-experiments">About Paper Experiments<a class="headerlink" href="#about-paper-experiments" title="Permanent link"></a></h2>
 <p>The experiments to reproduce the results in Table 2 of the Paper, are contained in Experiments/evaluation.py.  </p>
 <p><strong><em>Warning I</em></strong>: results may slightly vary due to randomness in the initialization and training of both the Machine Learning models and explanation models (eg. LIME generates 5000 random datapoints, Shap randomly samples a number of variable combinations, etc).  </p>
-<p><strong><em>Warning II</em></strong>: experiments take a very long time to run.</p>
+<p><strong><em>Warning II</em></strong>: experiments require long computation time to run. Just to give an idea, on a Intel-i9 11th gen CPU, 32GB RAM, 8 cores Laptop the evaluation.py script takes approximately 52 hours to run. </p>
 <h2 id="black-box-models-specifics">Black-Box Models Specifics:<a class="headerlink" href="#black-box-models-specifics" title="Permanent link"></a></h2>
 <ul>
 <li>
@@ -1082,7 +1082,7 @@ body .markdown-body
 The number of epochs is 40000, never reached since we use early stopping, setting patience=700. Regarding the min_delta parameter we use a different value for each dataset, since the target variable has different scales of measurement. In particular, min_delta has value 0.03 for the wine dataset, 0.3 for parkinson, 3 for houses.</p>
 </li>
 </ul>
-<h2 id="steps-to-reproduce-the-code-specif-for-windows-os">Steps to reproduce the code (specif for Windows OS):<a class="headerlink" href="#steps-to-reproduce-the-code-specif-for-windows-os" title="Permanent link"></a></h2>
+<h2 id="steps-to-reproduce-the-code-specific-for-windows-os">Steps to reproduce the code (specific for Windows OS):<a class="headerlink" href="#steps-to-reproduce-the-code-specific-for-windows-os" title="Permanent link"></a></h2>
 <ul>
 <li>Open the terminal from the Gleams_code_submission folder</li>
 <li>download virtualenv package <code>py -m pip install --user virtualenv</code></li>
