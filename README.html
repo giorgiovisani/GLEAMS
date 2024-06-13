@@ -1,6 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {
   max-width: 980px;
-  outline: 1300px solid #fff;
   margin: 16px auto;
 }
 
@@ -501,8 +500,11 @@ body .markdown-body
   padding-bottom: 0.2em;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
+}
+
+.markdown-body code:not(.highlight):not(.codehilite), .markdown-body samp {
+  background-color: rgba(0,0,0,0.04);
 }
 
 .markdown-body code:before,
@@ -533,8 +535,16 @@ body .markdown-body
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f7f7f7;
+}
+
+.markdown-body .codehilite,
+.markdown-body .highlight,
+.markdown-body pre {
   border-radius: 3px;
+}
+
+.markdown-body :not(.highlight) > pre {
+  background-color: #f7f7f7;
 }
 
 .markdown-body .codehilite pre,
@@ -1004,7 +1014,7 @@ body .markdown-body
   }
 }
 </style><style>/*GitHub*/
-.highlight {background-color:#fff;color:#333333;}
+.highlight {background-color:#f7f7f7;color:#333333;}
 .highlight .hll {background-color:#ffffcc;}
 .highlight .c{color:#999988;font-style:italic}
 .highlight .err{color:#a61717;background-color:#e3d2d2}
@@ -1069,7 +1079,7 @@ body .markdown-body
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="gleams-bridging-the-gap-between-local-and-global-explanations">GLEAMS: Bridging the Gap Between Local and Global Explanations<a class="headerlink" href="#gleams-bridging-the-gap-between-local-and-global-explanations" title="Permanent link"></a></h1>
 <h4 id="supplementary-material">Supplementary material<a class="headerlink" href="#supplementary-material" title="Permanent link"></a></h4>
 <h2 id="about-paper-experiments">About Paper Experiments<a class="headerlink" href="#about-paper-experiments" title="Permanent link"></a></h2>
-<p>The experiments to reproduce the results in Table 2 of the Paper, are contained in Experiments/evaluation.py.  </p>
+<p>The experiments to reproduce the results in Table 1 of the Paper, are contained in Experiments/evaluation.py.  </p>
 <p><strong><em>Warning I</em></strong>: results may slightly vary due to randomness in the initialization and training of both the Machine Learning models and explanation models (eg. LIME generates 5000 random datapoints, Shap randomly samples a number of variable combinations, etc).  </p>
 <p><strong><em>Warning II</em></strong>: experiments require long computation time to run. Just to give an idea, on a Intel-i9 11th gen CPU, 32GB RAM, 8 cores Laptop the evaluation.py script takes approximately 52 hours to run. </p>
 <h2 id="black-box-models-specifics">Black-Box Models Specifics:<a class="headerlink" href="#black-box-models-specifics" title="Permanent link"></a></h2>
@@ -1084,7 +1094,7 @@ The number of epochs is 40000, never reached since we use early stopping, settin
 </ul>
 <h2 id="steps-to-reproduce-the-code-specific-for-windows-os">Steps to reproduce the code (specific for Windows OS):<a class="headerlink" href="#steps-to-reproduce-the-code-specific-for-windows-os" title="Permanent link"></a></h2>
 <ul>
-<li>Open the terminal from the AISTATS_submission_code folder</li>
+<li>Open the terminal from the GLEAMS folder</li>
 <li>download virtualenv package <code>py -m pip install --user virtualenv</code></li>
 <li>Create your own virtual environment <code>py -m venv env</code></li>
 <li>Activate the gleams_venv by using <code>.\env\Scripts\activate</code></li>

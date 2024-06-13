@@ -3,7 +3,7 @@
 
 ## About Paper Experiments
 
-The experiments to reproduce the results in Table 2 of the Paper, are contained in Experiments/evaluation.py.  
+The experiments to reproduce the results in Table 1 of the Paper, are contained in Experiments/evaluation.py.  
 
 ***Warning I***: results may slightly vary due to randomness in the initialization and training of both the Machine Learning models and explanation models (eg. LIME generates 5000 random datapoints, Shap randomly samples a number of variable combinations, etc).  
 
@@ -19,7 +19,7 @@ The number of epochs is 40000, never reached since we use early stopping, settin
 
 ## Steps to reproduce the code (specific for Windows OS):
 
-- Open the terminal from the AISTATS\_submission\_code folder
+- Open the terminal from the GLEAMS folder
 - download virtualenv package ```py -m pip install --user virtualenv```
 - Create your own virtual environment ```py -m venv env```
 - Activate the gleams_venv by using ```.\env\Scripts\activate```
