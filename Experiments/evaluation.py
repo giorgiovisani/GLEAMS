@@ -4,6 +4,7 @@ Evaluating different explanation methods using monotonicity and recall of import
 
 import os
 import random
+import json
 
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -19,7 +20,7 @@ from explanations import (get_lime, load_previous_expl, train_gleams,
                           train_lime, train_pdp, train_shap)
 from ml_models import (EarlyStoppingVerbose, _check_params, get_nn_regr,
                        get_xgb_regr, import_preproc_dataset,
-                       load_previous_model)
+                       load_previous_model, save_pkl_model)
 from scipy.stats import spearmanr
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
@@ -347,8 +348,8 @@ def run_monotonicity_test(dataset, model, n_mc, n_sobol_points):
     else:
         gleams_glob_exp = train_gleams(n_sobol_points=n_sobol_points, model=regressor,
                                        X_data=X_train, is_keras=is_keras)
-        # save_pkl_model(my_object=gleams_glob_exp, is_gleams_nn=is_keras,
-        #                path=f"./explanations/Gleams_Model_{dataset}_{model}_sob{n_sobol_points}.pkl")
+        save_pkl_model(my_object=gleams_glob_exp, is_gleams_nn=is_keras,
+                       path=f"./explanations/Gleams_Model_{dataset}_{model}_sob{n_sobol_points}.pkl")
 
     if global_attributions["gleams"] is None:
         print("Global Monotonicity GLEAMS")
@@ -455,6 +456,10 @@ def run_monotonicity_test(dataset, model, n_mc, n_sobol_points):
                 local_monotonicity[x_method].append(
                     compute_single_example_monotonicity(local_e, single_local_attributions[x_method]))
 
+    with open(os.path.join(r"./results", f"local_mon_{dataset}_sob{n_sobol_points}_{model}.json"), 'w') as fp:
+        json.dump(local_monotonicity, fp)
+    with open(os.path.join(r"./results", f"global_mon_{dataset}_sob{n_sobol_points}_{model}.json"), 'w') as fp:
+        json.dump(global_monotonicity, fp)
     # aggregate monotonicity scores of single test units into final monotonicity value
     global_monotonicity = {x_method: np.mean(global_monotonicity[x_method]) for x_method in x_methods}
     local_monotonicity = {x_method: np.mean(local_monotonicity[x_method]) for x_method in x_methods}
@@ -599,6 +604,8 @@ def run_recall_test(dataset, model, n_relevant_vars, n_sobol_points):
         recall[x_method] = np.mean(recall_single_examples[x_method])
         recall_std[x_method] = np.std(recall_single_examples[x_method])
 
+    with open(os.path.join(r"./results", f"recall_{dataset}_sob{n_sobol_points}_{model}.json"), 'w') as fp:
+        json.dump(recall_single_examples, fp)
     return recall, recall_std
 
 
@@ -644,5 +651,5 @@ def run_tests(dataset, n_sobol_points, relevant_vars_list, n_mc=1000):
 
 if __name__ == "__main__":
     run_tests(dataset="wine",n_sobol_points=15,relevant_vars_list=[6])
-    run_tests(dataset="houses", n_sobol_points=15, relevant_vars_list=[10])
-    run_tests(dataset="parkinson",n_sobol_points=15,relevant_vars_list=[10])
+    # run_tests(dataset="houses", n_sobol_points=15, relevant_vars_list=[10])
+    # run_tests(dataset="parkinson",n_sobol_points=15,relevant_vars_list=[10])
